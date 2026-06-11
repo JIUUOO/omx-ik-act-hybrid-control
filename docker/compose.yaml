@@ -1,0 +1,23 @@
+name: omx
+
+services:
+  motion:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.jazzy
+
+    image: omx-motion:jazzy
+
+    network_mode: host
+    ipc: host
+    pid: host
+    privileged: true
+    tty: true
+    stdin_open: true
+
+    environment:
+      ROS_DOMAIN_ID: 30
+
+    volumes:
+      - /dev:/dev
+      - ../open_manipulator:/root/ros2_ws/src/open_manipulator

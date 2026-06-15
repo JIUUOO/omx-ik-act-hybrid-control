@@ -22,3 +22,4 @@ services:
       - /dev:/dev
       - ../open_manipulator:/root/ros2_ws/src/open_manipulator
       - ../cyclo_control:/root/ros2_ws/src/cyclo_control
+      - ../robotis_interfaces:/root/ros2_ws/src/robotis_interfaces

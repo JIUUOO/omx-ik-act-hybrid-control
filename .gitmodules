@@ -5,3 +5,7 @@
 [submodule "cyclo_control"]
 	path = cyclo_control
 	url = https://github.com/ROBOTIS-GIT/cyclo_control.git
+[submodule "robotis_interfaces"]
+	path = robotis_interfaces
+	url = https://github.com/ROBOTIS-GIT/robotis_interfaces.git
+	branch = main

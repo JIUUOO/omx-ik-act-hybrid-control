@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# ROS2 build artifacts
+build/
+install/
+log/
+
+# Editor
+.vscode/
+*.swp

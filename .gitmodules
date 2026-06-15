@@ -2,3 +2,10 @@
 	path = open_manipulator
 	url = https://github.com/ROBOTIS-GIT/open_manipulator.git
 	branch = jazzy
+[submodule "cyclo_control"]
+	path = cyclo_control
+	url = https://github.com/ROBOTIS-GIT/cyclo_control.git
+[submodule "robotis_interfaces"]
+	path = robotis_interfaces
+	url = https://github.com/ROBOTIS-GIT/robotis_interfaces.git
+	branch = main

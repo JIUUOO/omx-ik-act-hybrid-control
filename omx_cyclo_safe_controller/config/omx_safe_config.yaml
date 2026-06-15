@@ -1,0 +1,42 @@
+omx_movel_controller:
+  ros__parameters:
+    control_frequency: 100.0
+    time_step: 0.01
+    trajectory_time: 0.0
+
+    kp_position: 50.0
+    kp_orientation: 50.0
+
+    weight_task_position: 10.0
+    weight_task_orientation: 1.0
+    weight_damping: 0.001
+
+    slack_penalty: 1000.0
+    cbf_alpha: 5.0
+    collision_buffer: 0.01
+    collision_safe_distance: 0.005
+
+    base_frame: "link0"
+    controlled_link: "end_effector_link"
+
+    joint_states_topic: "/joint_states"
+    joint_command_topic: "/leader/joint_trajectory"
+    movel_topic: "~/movel"
+    ee_pose_topic: "~/current_pose"
+    controller_error_topic: "~/controller_error"
+    startup_relaxation_topic: "~/startup_relaxation_active"
+
+    startup_relaxation_enabled: true
+    startup_sphere_geometry: "link5_0"
+    startup_sphere_radius: 0.05
+    startup_restore_distance: 0.007
+
+    startup_home_positions: [0.0, -1.57, 1.57, 1.57, 0.0]
+    startup_home_tolerance: 0.15
+
+    startup_require_closed_gripper: true
+    startup_gripper_joint_name: "gripper_joint_1"
+    startup_gripper_closed_position: 0.0
+    startup_gripper_tolerance: 0.15
+
+    startup_lock_joint_name: "joint5"

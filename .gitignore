@@ -8,6 +8,10 @@ install/
 log/
 .ros2_ws/
 
+# HuggingFace
+docker/huggingface/
+docker/workspace/
+
 # Editor
 .vscode/
 *.swp

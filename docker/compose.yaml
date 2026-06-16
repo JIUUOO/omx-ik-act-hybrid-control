@@ -12,15 +12,27 @@ services:
     ipc: host
     pid: host
     privileged: true
+    gpus: all
     tty: true
     stdin_open: true
 
     environment:
       ROS_DOMAIN_ID: 30
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility
 
     volumes:
       - /dev:/dev
+      - ../.ros2_ws/build:/root/ros2_ws/build
+      - ../.ros2_ws/install:/root/ros2_ws/install
+      - ../.ros2_ws/log:/root/ros2_ws/log
       - ../open_manipulator:/root/ros2_ws/src/open_manipulator
       - ../cyclo_control:/root/ros2_ws/src/cyclo_control
       - ../robotis_interfaces:/root/ros2_ws/src/robotis_interfaces
       - ../omx_cyclo_safe_controller:/root/ros2_ws/src/omx_cyclo_safe_controller
+      - ../usb_cam:/root/ros2_ws/src/usb_cam
+      - ../omx_ik_act_bringup:/root/ros2_ws/src/omx_ik_act_bringup
+      - ../omx_ik_act_relay:/root/ros2_ws/src/omx_ik_act_relay
+      - ../yolo_coord_transform:/root/ros2_ws/src/yolo_coord_transform
+      - ../robot_ik_control:/root/ros2_ws/src/robot_ik_control
+      - ../yolo_ros:/root/ros2_ws/src/yolo_ros

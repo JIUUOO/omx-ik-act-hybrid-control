@@ -1,0 +1,31 @@
+# [Camera hardware control guide]
+# Values in this file are passed to usb_cam_node_exe. The node decides how
+# each value is applied to the V4L2 device.
+
+camera1:
+    ros__parameters:
+      video_device: "/dev/v4l/by-id/usb-Innomaker_Innomaker-U20CAM-720P_SN0001-video-index0"
+      framerate: 30.0
+      io_method: "mmap"
+      frame_id: "camera1"
+      pixel_format: "yuyv"
+      av_device_format: "YUV422P"
+      image_width: 320
+      image_height: 240
+      camera_name: "wrist"
+      camera_info_url: "package://omx_ik_act_bringup/config/camera1_info.yaml"
+
+      brightness: 0
+      contrast: 32
+      saturation: 64
+      sharpness: 3
+      gain: 0
+
+      auto_white_balance: true
+      white_balance: 4600
+
+      autoexposure: false
+      exposure: 156
+
+      autofocus: false
+      focus: -1

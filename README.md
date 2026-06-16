@@ -35,6 +35,8 @@ ls -l /dev/omx_leader /dev/omx_follower
 
 ## Docker
 
+### Motion Container (Robot Control)
+
 Build and start the motion container:
 
 ```bash
@@ -50,6 +52,34 @@ apt-get update
 rosdep install --from-paths /root/ros2_ws/src --ignore-src -r -y --rosdistro jazzy
 omxbuild
 ```
+
+### Physical AI Tools (Recording & Training & Inference)
+
+One-time host setup:
+
+```bash
+# NVIDIA Container Runtime
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
+
+# Unix socket directory
+sudo mkdir -p /var/run/robotis/agent_sockets/physical_ai_server
+sudo chmod 777 /var/run/robotis/agent_sockets/physical_ai_server
+
+# lerobot submodule (clone with recurse-submodules to skip this)
+git submodule update --init --recursive -- physical_ai_tools
+
+# Required directories for physical_ai_tools compose
+mkdir -p physical_ai_tools/docker/huggingface physical_ai_tools/docker/workspace
+```
+
+Start the AI server and web UI:
+
+```bash
+docker compose -f physical_ai_tools/docker/docker-compose.yml up -d
+```
+
+Access the web UI at `http://localhost`, select robot type `omx_f`.
 
 ## Leader-Follower Teleoperation
 

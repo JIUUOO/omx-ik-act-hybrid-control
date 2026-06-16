@@ -73,13 +73,75 @@ git submodule update --init --recursive -- physical_ai_tools
 mkdir -p physical_ai_tools/docker/huggingface physical_ai_tools/docker/workspace
 ```
 
-Start the AI server and web UI:
+Start the Physical AI manager and server with the OMX overrides:
 
 ```bash
-docker compose -f physical_ai_tools/docker/docker-compose.yml up -d
+OMX_WS=$PWD docker compose \
+  -f physical_ai_tools/docker/docker-compose.yml \
+  -f docker/physical_ai_tools_compose.yaml \
+  up -d --force-recreate
 ```
 
-Access the web UI at `http://localhost`, select robot type `omx_f`.
+If the ROS server nodes are not listed after startup, launch the server inside
+the container:
+
+```bash
+docker exec -d -e ROS_DOMAIN_ID=30 physical_ai_server bash -lc \
+'source /root/ros2_ws/install/setup.bash && ros2 launch physical_ai_server physical_ai_server_bringup.launch.py'
+```
+
+Verify that the server sees the OMX cameras:
+
+```bash
+docker exec physical_ai_server bash -lc \
+'source /root/ros2_ws/install/setup.bash && ros2 node list | grep -E "physical_ai_server|rosbridge|web_video|camera"'
+```
+
+#### Record & Train
+
+Use the Physical AI Tools web UI at `http://localhost` for recording and
+training. Select robot type `omx_f` in the UI before recording or checking
+cameras.
+
+#### Inference
+
+Download the inference policy once:
+
+```bash
+docker exec -it physical_ai_server bash -lc \
+'huggingface-cli download JIUUOO/omx_act_task2_full_d50_s10k_seed1000 \
+  --local-dir /root/.cache/huggingface/hub/omx_act_task2 \
+  --local-dir-use-symlinks False'
+```
+
+Start inference with robot type `omx_f_infer`:
+
+```bash
+docker exec -e ROS_DOMAIN_ID=30 physical_ai_server bash -lc "
+source /root/ros2_ws/install/setup.bash &&
+ros2 service call /set_robot_type physical_ai_interfaces/srv/SetRobotType \
+  \"{robot_type: 'omx_f_infer'}\" &&
+ros2 service call /task/command physical_ai_interfaces/srv/SendCommand \
+  \"{command: 2, task_info: {
+    task_name: 'inference',
+    task_instruction: [''],
+    policy_path: '/root/.cache/huggingface/hub/omx_act_task2',
+    fps: 30,
+    warmup_time_s: 3,
+    record_inference_mode: false
+  }}\"
+"
+```
+
+Stop inference with `FINISH`:
+
+```bash
+docker exec -e ROS_DOMAIN_ID=30 physical_ai_server bash -lc "
+source /root/ros2_ws/install/setup.bash &&
+ros2 service call /task/command physical_ai_interfaces/srv/SendCommand \
+  \"{command: 6}\"
+"
+```
 
 ## Leader-Follower Teleoperation
 

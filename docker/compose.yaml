@@ -20,6 +20,9 @@ services:
 
     volumes:
       - /dev:/dev
+      - ../.ros2_ws/build:/root/ros2_ws/build
+      - ../.ros2_ws/install:/root/ros2_ws/install
+      - ../.ros2_ws/log:/root/ros2_ws/log
       - ../open_manipulator:/root/ros2_ws/src/open_manipulator
       - ../cyclo_control:/root/ros2_ws/src/cyclo_control
       - ../robotis_interfaces:/root/ros2_ws/src/robotis_interfaces

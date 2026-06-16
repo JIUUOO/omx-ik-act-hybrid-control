@@ -2,6 +2,7 @@ FROM ros:jazzy-ros-base
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV ROS_DOMAIN_ID=30
+ENV ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
 
 SHELL ["/bin/bash", "-c"]
 
@@ -36,6 +37,8 @@ RUN if [ -f /tmp/rosdep_ws/src/yolo_ros/pyproject.toml ]; then \
     rm -rf /tmp/rosdep_ws
 
 RUN echo 'source /opt/ros/jazzy/setup.bash' >> /root/.bashrc && \
+    echo 'export ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-30}' >> /root/.bashrc && \
+    echo 'export ROS_AUTOMATIC_DISCOVERY_RANGE=${ROS_AUTOMATIC_DISCOVERY_RANGE:-LOCALHOST}' >> /root/.bashrc && \
     echo 'if [ -f /root/ros2_ws/install/setup.bash ]; then source /root/ros2_ws/install/setup.bash; fi' >> /root/.bashrc && \
     echo 'alias omxws="cd /root/ros2_ws"' >> /root/.bashrc && \
     echo 'alias omxbuild="cd /root/ros2_ws && colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release && source install/setup.bash"' >> /root/.bashrc

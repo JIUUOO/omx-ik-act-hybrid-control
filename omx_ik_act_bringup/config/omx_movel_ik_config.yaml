@@ -14,14 +14,13 @@ omx_movel_controller:
     slack_penalty: 1000.0
     cbf_alpha: 5.0
     collision_buffer: 0.01
-    collision_safe_distance: 0.001 # 0.005
+    collision_safe_distance: 0.001
 
     base_frame: "link0"
     controlled_link: "end_effector_link"
 
     joint_states_topic: "/joint_states"
-    joint_command_topic: "/ik/joint_trajectory"
-    # joint_command_topic: "/leader/joint_trajectory"
+    joint_command_topic: "/leader/joint_trajectory"
     movel_topic: "~/movel"
     ee_pose_topic: "~/current_pose"
     controller_error_topic: "~/controller_error"

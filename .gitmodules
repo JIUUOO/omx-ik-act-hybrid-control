@@ -13,3 +13,9 @@
 	path = physical_ai_tools
 	url = https://github.com/ROBOTIS-GIT/physical_ai_tools.git
 	branch = jazzy
+[submodule "usb_cam"]
+	path = usb_cam
+	url = https://github.com/ros-drivers/usb_cam
+[submodule "yolo_ros"]
+	path = yolo_ros
+	url = https://github.com/mgonzs13/yolo_ros.git

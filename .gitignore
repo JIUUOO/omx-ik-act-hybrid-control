@@ -6,6 +6,7 @@ __pycache__/
 build/
 install/
 log/
+.ros2_ws/
 
 # HuggingFace
 docker/huggingface/

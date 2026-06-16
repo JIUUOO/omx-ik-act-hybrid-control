@@ -1,0 +1,6 @@
+robot_ik_control_node:
+  ros__parameters:
+    yolo_target_topic: "/target_workspace_coord"
+    omx_control_topic: "/omx_movel_controller/movel"
+    move_duration_sec: 3
+    move_duration_nanosec: 0

@@ -1,0 +1,50 @@
+yolo_coord_transform_node:
+  ros__parameters:
+    yolo_topic: "/yolo/detections"
+    output_topic: "/target_workspace_coord"
+    place_output_topic: "/place_workspace_coord"
+
+    # Custom YOLO model names:
+    # 0=apple, 1=lemon, 2=orange, 3=pear, 4=plate
+    target_class_ids: [2, 1, 0, 3]
+    target_min_score: 0.4
+
+    # Custom YOLO model: 4 is plate.
+    place_class_ids: [4]
+    place_min_score: 0.4
+    require_place_detection: false
+
+    target_z_offset: 0.20    # Safe approach height for the end-effector target in meters
+    place_z_offset: 0.20     # Safe approach height for the detected dish/place target
+    frame_id: "link0"        # OMX MoveL controller base frame
+    target_publish_keys: ["1", "2", "3", "4", "5"]
+    target_key_class_ids: [2, 1, 0, 3, 4]
+    target_key_labels: ["orange", "lemon", "apple", "pear", "plate"]
+    target_publish_key: "a"         # Legacy: publish best cached target coord
+    place_publish_key: "d"          # Legacy: publish cached plate coord
+    reset_key: "r"                  # Publish reset_position to output_topic when pressed
+    reset_frame_id: "base_link"
+    reset_position: [0.03, 0.0, 0.03]
+
+    # 3x3 Perspective Transform Matrix, Homography
+    # Flattened 1D array of 9 elements, row-major order
+    # Original matrix scale part was multiplied by 1.05
+    transform_matrix: [
+      -0.000015, 0.001135, -0.045582,
+      0.000896, -0.000067, -0.263321,
+      0.000258, -0.000090, 1.000000
+    ]
+
+# [calibration_node-1] =======================================================
+# [calibration_node-1] [INFO] [1778728761.678788022] [calibration_node]: 🎉 CALIBRATION COMPLETE 🎉
+# [calibration_node-1] [INFO] [1778728761.679080903] [calibration_node]: =======================================================
+# [calibration_node-1] [INFO] [1778728761.679373408] [calibration_node]: Please copy the following array into 'transform_params.yaml':
+# [calibration_node-1] 
+# [calibration_node-1] [INFO] [1778728761.679654778] [calibration_node]:     transform_matrix: [
+# [calibration_node-1]       -0.000015, 0.001135, -0.045582,
+# [calibration_node-1]       0.000896, -0.000067, -0.263321,
+# [calibration_node-1]       0.000258, -0.000090, 1.000000
+# [calibration_node-1]     ]
+# [calibration_node-1] [INFO] [1778728761.679920260] [calibration_node]: =======================================================
+# [calibration_node-1] 
+# [calibration_node-1] [INFO] [1778728761.680185631] [calibration_node]: You can now press 'q' in the image window to close.

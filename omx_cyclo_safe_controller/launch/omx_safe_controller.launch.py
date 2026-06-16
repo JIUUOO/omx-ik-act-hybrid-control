@@ -29,7 +29,7 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             'joint_command_topic',
-            default_value='/leader/joint_trajectory',
+            default_value='/ik/joint_trajectory',
             description='Arm trajectory command topic.',
         ),
         DeclareLaunchArgument(

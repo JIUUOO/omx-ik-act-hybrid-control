@@ -1,0 +1,12 @@
+ik_act_relay:
+  ros__parameters:
+    input_names: ["ik", "act"]
+    input_topics:
+      - "/ik/joint_trajectory"
+      - "/act/joint_trajectory"
+
+    output_topic: "/leader/joint_trajectory"
+
+    publish_keys: ["8", "0"]
+    publish_key_sources: ["ik", "act"]
+    stop_keys: ["9"]

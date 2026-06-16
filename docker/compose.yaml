@@ -30,7 +30,6 @@ services:
       - ../open_manipulator:/root/ros2_ws/src/open_manipulator
       - ../cyclo_control:/root/ros2_ws/src/cyclo_control
       - ../robotis_interfaces:/root/ros2_ws/src/robotis_interfaces
-      - ../omx_cyclo_safe_controller:/root/ros2_ws/src/omx_cyclo_safe_controller
       - ../usb_cam:/root/ros2_ws/src/usb_cam
       - ../omx_ik_act_bringup:/root/ros2_ws/src/omx_ik_act_bringup
       - ../omx_ik_act_relay:/root/ros2_ws/src/omx_ik_act_relay

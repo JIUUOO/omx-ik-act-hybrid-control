@@ -30,9 +30,9 @@ yolo_coord_transform_node:
     # Flattened 1D array of 9 elements, row-major order
     # Original matrix scale part was multiplied by 1.05
     transform_matrix: [
-      -0.000015, 0.001135, -0.045582,
-      0.000896, -0.000067, -0.263321,
-      0.000258, -0.000090, 1.000000
+      0.000012, 0.001055, -0.010247,
+      0.000988, -0.000059, -0.298477,
+      0.000142, -0.000654, 1.000000
     ]
 
 # [calibration_node-1] =======================================================

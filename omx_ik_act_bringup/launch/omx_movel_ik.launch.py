@@ -11,25 +11,19 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     config_file = LaunchConfiguration('config_file')
-    controller_type = LaunchConfiguration('controller_type')
     start_interactive_marker = LaunchConfiguration('start_interactive_marker')
 
     default_config_file = PathJoinSubstitution([
         FindPackageShare('omx_ik_act_bringup'),
         'config',
-        'omx_config.yaml',
+        'omx_movel_ik_config.yaml',
     ])
 
     return LaunchDescription([
         DeclareLaunchArgument(
             'config_file',
             default_value=default_config_file,
-            description='Path to the OMX IK/ACT controller config file.',
-        ),
-        DeclareLaunchArgument(
-            'controller_type',
-            default_value='movel',
-            description='Controller type passed to cyclo OMX launch.',
+            description='Path to the OMX MoveL IK controller config file.',
         ),
         DeclareLaunchArgument(
             'start_interactive_marker',
@@ -46,7 +40,7 @@ def generate_launch_description():
             ),
             launch_arguments={
                 'config_file': config_file,
-                'controller_type': controller_type,
+                'controller_type': 'movel',
                 'start_interactive_marker': start_interactive_marker,
             }.items(),
         ),

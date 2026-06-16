@@ -30,4 +30,5 @@ services:
       - ../usb_cam:/root/ros2_ws/src/usb_cam
       - ../omx_ik_act_bringup:/root/ros2_ws/src/omx_ik_act_bringup
       - ../omx_ik_act_relay:/root/ros2_ws/src/omx_ik_act_relay
+      - ../yolo_coord_transform:/root/ros2_ws/src/yolo_coord_transform
       - ../yolo_ros:/root/ros2_ws/src/yolo_ros

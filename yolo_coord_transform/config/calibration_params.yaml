@@ -1,0 +1,15 @@
+calibration_node:
+  ros__parameters:
+    image_topic: "/camera3/image_raw"
+    
+    # Pre-defined physical world coordinates (X, Y in meters) for your calibration markers.
+    # The node will prompt you to click the points in this EXACT order.
+    # Minimum 4 points required, 6~8 recommended.
+    world_points: [
+      0.1, -0.15,   # Point 1 (x, y)
+      0.1,  0.0,      # Point 2
+      0.1,  0.15,   # Point 3
+      0.2, -0.15,   # Point 4
+      0.2,  0.0,   # Point 5
+      0.2,  0.15   # Point 6
+    ]

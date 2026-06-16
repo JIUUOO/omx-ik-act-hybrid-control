@@ -1,0 +1,32 @@
+physical_ai_server:
+  ros__parameters:
+    omx_f:
+      observation_list:
+        - wrist
+        - top
+        - front
+        - state
+
+      camera_topic_list:
+        - wrist:/camera1/image_raw/compressed
+        - top:/camera3/image_raw/compressed
+        - front:/camera2/image_raw/compressed
+
+      joint_topic_list:
+        - follower:/joint_states
+        - leader:/leader/joint_trajectory
+
+      joint_list:
+        - leader
+
+      joint_order:
+        leader:
+          - joint1
+          - joint2
+          - joint3
+          - joint4
+          - joint5
+          - gripper_joint_1
+
+      rosbag_extra_topic_list:
+        - ''

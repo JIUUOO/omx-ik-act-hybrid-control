@@ -6,3 +6,8 @@ services:
       - QT_X11_NO_MITSHM=1
       - ROS_DOMAIN_ID=30
       - ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
+    volumes:
+      - ${OMX_WS:?Set OMX_WS to the repository root}/config/omx_f_infer_config.yaml:/root/ros2_ws/src/physical_ai_tools/physical_ai_server/config/omx_f_infer_config.yaml:ro
+      - ${OMX_WS:?Set OMX_WS to the repository root}/config/omx_f_infer_config.yaml:/root/ros2_ws/install/physical_ai_server/share/physical_ai_server/config/omx_f_infer_config.yaml:ro
+      - ${OMX_WS:?Set OMX_WS to the repository root}/config/omx_f_config.yaml:/root/ros2_ws/src/physical_ai_tools/physical_ai_server/config/omx_f_config.yaml:ro
+      - ${OMX_WS:?Set OMX_WS to the repository root}/config/omx_f_config.yaml:/root/ros2_ws/install/physical_ai_server/share/physical_ai_server/config/omx_f_config.yaml:ro

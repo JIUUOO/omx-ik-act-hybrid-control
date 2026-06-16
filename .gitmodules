@@ -9,3 +9,6 @@
 	path = robotis_interfaces
 	url = https://github.com/ROBOTIS-GIT/robotis_interfaces.git
 	branch = main
+[submodule "usb_cam"]
+	path = usb_cam
+	url = https://github.com/ros-drivers/usb_cam

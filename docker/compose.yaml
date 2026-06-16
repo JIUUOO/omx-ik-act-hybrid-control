@@ -26,3 +26,4 @@ services:
       - ../omx_cyclo_safe_controller:/root/ros2_ws/src/omx_cyclo_safe_controller
       - ../usb_cam:/root/ros2_ws/src/usb_cam
       - ../omx_ik_act_bringup:/root/ros2_ws/src/omx_ik_act_bringup
+      - ../yolo_ros:/root/ros2_ws/src/yolo_ros

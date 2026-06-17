@@ -82,6 +82,12 @@ OMX_WS=$PWD docker compose \
   up -d --force-recreate
 ```
 
+Verify that the OMX config override is mounted:
+
+```bash
+docker inspect physical_ai_server --format '{{range .Mounts}}{{println .Source "->" .Destination}}{{end}}' | grep omx_f
+```
+
 If the ROS server nodes are not listed after startup, launch the server inside
 the container:
 
@@ -93,8 +99,8 @@ docker exec -d -e ROS_DOMAIN_ID=30 physical_ai_server bash -lc \
 Verify that the server sees the OMX cameras:
 
 ```bash
-docker exec physical_ai_server bash -lc \
-'source /root/ros2_ws/install/setup.bash && ros2 node list | grep -E "physical_ai_server|rosbridge|web_video|camera"'
+docker exec -e ROS_DOMAIN_ID=30 physical_ai_server bash -lc \
+'source /root/ros2_ws/install/setup.bash && ros2 node list --no-daemon | grep -E "physical_ai_server|rosbridge|web_video|camera"'
 ```
 
 #### Record & Train
@@ -114,20 +120,20 @@ docker exec -it physical_ai_server bash -lc \
   --local-dir-use-symlinks False'
 ```
 
-Start inference with robot type `omx_f_infer`:
+Start inference with robot type `omx_f`:
 
 ```bash
 docker exec -e ROS_DOMAIN_ID=30 physical_ai_server bash -lc "
 source /root/ros2_ws/install/setup.bash &&
 ros2 service call /set_robot_type physical_ai_interfaces/srv/SetRobotType \
-  \"{robot_type: 'omx_f_infer'}\" &&
+  \"{robot_type: 'omx_f'}\" &&
 ros2 service call /task/command physical_ai_interfaces/srv/SendCommand \
   \"{command: 2, task_info: {
     task_name: 'inference',
     task_instruction: [''],
     policy_path: '/root/.cache/huggingface/hub/omx_act_task2',
     fps: 30,
-    warmup_time_s: 3,
+    warmup_time_s: 0,
     record_inference_mode: false
   }}\"
 "

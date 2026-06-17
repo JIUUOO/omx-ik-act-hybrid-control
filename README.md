@@ -120,6 +120,44 @@ docker exec -it physical_ai_server bash -lc \
   --local-dir-use-symlinks False'
 ```
 
+First check where the ROS `physical_ai_server` process is actually running.
+The `policy_path` in `/task/command` is resolved by that server process, not by
+the shell that sends the service request.
+
+If the server was launched on the host, for example from
+`/home/ubuntu/act_ws/install/physical_ai_server`, send service calls from the
+host and use the host-mounted model path:
+
+```bash
+pgrep -af 'physical_ai_server/physical_ai_server'
+```
+
+```bash
+source /opt/ros/jazzy/setup.bash
+source /home/ubuntu/act_ws/install/setup.bash
+
+ROS_DOMAIN_ID=30 ros2 service call /set_robot_type physical_ai_interfaces/srv/SetRobotType \
+  "{robot_type: 'omx_f'}"
+
+ROS_DOMAIN_ID=30 ros2 service call /task/command physical_ai_interfaces/srv/SendCommand \
+  "{command: 2, task_info: {
+    task_name: 'inference',
+    task_instruction: [''],
+    policy_path: '$PWD/physical_ai_tools/docker/huggingface/hub/omx_act_task2',
+    fps: 30,
+    warmup_time_s: 0,
+    record_inference_mode: false
+  }}"
+```
+
+If the server is actually running inside the `physical_ai_server` container,
+then use container paths and send the service call inside that container:
+
+```bash
+docker exec physical_ai_server bash -lc \
+'ps -ef | grep -E "physical_ai_server/physical_ai_server" | grep -v grep'
+```
+
 Start inference with robot type `omx_f`:
 
 ```bash
@@ -140,6 +178,18 @@ ros2 service call /task/command physical_ai_interfaces/srv/SendCommand \
 ```
 
 Stop inference with `FINISH`:
+
+Host-launched server:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+source /home/ubuntu/act_ws/install/setup.bash
+
+ROS_DOMAIN_ID=30 ros2 service call /task/command physical_ai_interfaces/srv/SendCommand \
+  "{command: 6}"
+```
+
+Container-launched server:
 
 ```bash
 docker exec -e ROS_DOMAIN_ID=30 physical_ai_server bash -lc "

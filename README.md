@@ -2,6 +2,8 @@
 
 Hybrid manipulation workspace for Open Manipulator-X using ROS 2 Jazzy.
 
+- Demonstration Video: https://youtu.be/KXGIsG3nMj4
+
 ## Setup
 
 Clone the repository with its submodules:
